@@ -1,0 +1,39 @@
+; Pradines/Pagalbines funkcijos
+0 P * r pradzia
+salinam-P P _ r 0
+salinam-A A _ l iPradzia
+iPradzia * * l iPradzia
+iPradzia P * r pradzia
+
+; Patikrinam ar po P nėra tarpu
+; jeigu yra - juos pašalinam
+; jeigu nėra - einam toliau
+pradzia _ P l salinam-P ; pašalinam tarpus po P su pagalbine funkcija
+pradzia 1 * r toliau    ; jeigu nebuvo tarpo einam toliau
+pradzia 0 * r toliau    ; jeigu nebuvo tarpo einam toliau
+
+toliau 1 * r toliau       ; Kadangi rado skaičių - tarpo nėra, gali eiti "toliau"
+toliau 0 * r toliau       ; Kadangi rado skaičių - tarpo nėra, gali eiti "toliau"
+toliau _ * r pirmasTarpas ; Rado pirmąjį tarpą, šokam į "pirmasTarpas"
+toliau A * * halt         ; Radus "A" reiškia programos pabaigą
+
+pirmasTarpas _ * r antrasTarpas   ; Radus po pirmo tarpo dar vieną tarpą - eina į funkciją "antrasTarpas"
+pirmasTarpas 1 * r toliau         ;  Radus po pirmo tarpo vėl skaičių, galime grįžti atgal
+pirmasTarpas 0 * r toliau         ; Radus po pirmo tarpo vėl skaičių, galime grįžti atgal
+pirmasTarpas A * l pirmasTarpas-A ; Neradus antro tarpo pasiekė pabaigą, bet reikės patikrinti ar nėra tarpo prieš "A"
+
+pirmasTarpas-A 0 * r halt       ; Radus "A" po Pirmo tarpo ir grįžus į kairę radom skaičių. Stabdom
+pirmasTarpas-A 1 * r halt       ; Radus "A" po Pirmo tarpo ir grįžus į kairę radom skaičių. Stabdom
+pirmasTarpas-A _ A r salinam-A  ; jei radus "A" ir paėjus į kairę rado tarpą, ji pakeičia į "A" ir pašalina šalia esančią "A"
+
+antrasTarpas 0 _ l antrasTarpas-0 ; jeigu po antro tarpo rado 0, pakeičia jį tarpu ir eina į "0" funkcija
+antrasTarpas 1 _ l antrasTarpas-1 ; jeigu po antro tarpo rado 1, pakeičia jį tarpu ir eina į "1" funkcija
+antrasTarpas A * l antrasTarpas-A ; jeigu po antro tarpo rado A, pakeičia jį tarpu ir eina į "A" funkcija
+antrasTarpas _ * r antrasTarpas   ; jeigu randa dar vieną tarpą - keliauja iš naujo toje pačioje funkcijoje
+
+antrasTarpas-0 * 0 r antrasTarpas ; Po antro tarpo radus 0, ji prieš tai pakeitė tarpu, o šalia įrašo 0
+antrasTarpas-1 * 1 r antrasTarpas ; Po antro tarpo radus 1, ji prieš tai pakeitė tarpu, o šalia įrašo 1
+antrasTarpas-A * A r salinam-A    ; Po antro tarpo radus A, ji prieš tai pakeitė tarpu, o šalia įrašo A ir pašalina šalia esančią
+
+; Išbandyti morphett.info turingo mašinoje kodą:
+; http://morphett.info/turing/?16d3b8be9b9a06c3762cb55e1b2ed76b
