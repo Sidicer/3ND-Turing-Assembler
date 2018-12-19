@@ -1,10 +1,3 @@
-/*
-  program: TesiamLaborus.cpp
-  author: Deividas Gedgaudas 2018 ITF-18/2
-  date: 2018 - 12 - 18
-  name: 3ND - Assembler
-*/
-
 #include <iostream>
 using namespace std;
 
